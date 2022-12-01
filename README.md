@@ -1,5 +1,6 @@
 # corgit
 Heavyweight game framework built with Java2D API
+(Includes example game "Native Plants VS Zombies 2")
 
 Roadmap:
 * Display creating [DONE]
