@@ -3,6 +3,8 @@ package com.corgit.objects;
 import com.corgit.Buffer;
 import com.corgit.animations.Animation;
 
+import java.util.ArrayList;
+
 public class ClearObject implements CorgitObject {
     @Override
     public int draw(Buffer buffer) {
@@ -63,5 +65,10 @@ public class ClearObject implements CorgitObject {
     @Override
     public Animation getAnimation(int index) {
         return null;
+    }
+
+    @Override
+    public ArrayList<Animation> animations() {
+        return new ArrayList<>();
     }
 }

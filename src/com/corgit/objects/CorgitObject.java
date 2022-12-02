@@ -4,6 +4,8 @@ import com.corgit.Buffer;
 import com.corgit.Display;
 import com.corgit.animations.Animation;
 
+import java.util.ArrayList;
+
 public interface CorgitObject {
     int draw(Buffer buffer);
 
@@ -22,4 +24,6 @@ public interface CorgitObject {
     void addAnimation(Animation animation);
     void tickAnimation();
     Animation getAnimation(int index);
+
+    ArrayList<Animation> animations();
 }

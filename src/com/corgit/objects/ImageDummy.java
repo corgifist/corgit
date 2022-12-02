@@ -27,19 +27,15 @@ public class ImageDummy implements CorgitObject {
     }
 
     public ImageDummy(int x, int y, Buffer image) {
-        this(x, y, -1, -1, image);
+        this(x, y, image.getBuffer().getWidth(), image.getBuffer().getHeight(), image);
     }
 
     @Override
     public int draw(Buffer buffer) {
-        if (w + h == -2) {
-            buffer.getGraphics().drawImage(image.getBuffer(), x, y, null);
-        } else {
-            Buffer scaleBuffer = new Buffer(w, h);
-            scaleBuffer.getGraphics().drawImage(image.getBuffer(), 0, 0, w, h, null);
+        Buffer scaleBuffer = new Buffer(w, h);
+        scaleBuffer.getGraphics().drawImage(image.getBuffer(), 0, 0, w, h, null);
 
-            buffer.getGraphics().drawImage(scaleBuffer.getBuffer(), x, y, null);
-        }
+        buffer.getGraphics().drawImage(scaleBuffer.getBuffer(), x, y, null);
         return 0;
     }
 
@@ -78,6 +74,11 @@ public class ImageDummy implements CorgitObject {
     @Override
     public Animation getAnimation(int index) {
         return animations.get(index);
+    }
+
+    @Override
+    public ArrayList<Animation> animations() {
+        return animations;
     }
 
     @Override

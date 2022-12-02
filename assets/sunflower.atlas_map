@@ -1,0 +1,15 @@
+Atlas mapping for sunflower!
+
+folder sunflower
+
+entry sunflower_back
+file sunflower_back.png
+
+entry sunflower_front
+file sunflower_front.png
+
+entry sunflower_smile
+file sunflower_smile.png
+
+entry sunflower_eye
+file sunflower_eye.png

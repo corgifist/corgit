@@ -72,6 +72,11 @@ public class Box implements CorgitObject {
         return animations.get(index);
     }
 
+    @Override
+    public ArrayList<Animation> animations() {
+        return animations;
+    }
+
     public void setY(int y) {
         this.y = y;
     }

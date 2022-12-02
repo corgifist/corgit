@@ -2,28 +2,38 @@ package com.corgit.objects;
 
 import com.corgit.Buffer;
 import com.corgit.animations.Animation;
+import org.checkerframework.checker.units.qual.A;
 
-import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
-public class Rotator implements CorgitObject {
+public class Scaler implements CorgitObject {
 
+    private double sx, sy;
     private CorgitObject object;
-    private double degree;
 
-    public Rotator(CorgitObject object, double degree) {
+    public Scaler(double sx, double sy, CorgitObject object) {
+        this.sx = sx;
+        this.sy = sy;
         this.object = object;
-        this.degree = degree;
+    }
+
+    public Scaler(CorgitObject object) {
+        this(1, 1, object);
     }
 
     @Override
     public int draw(Buffer buffer) {
-        Buffer rotated = new Buffer(buffer.getBuffer().getWidth(), buffer.getBuffer().getHeight());
-        ((Graphics2D) rotated.getGraphics()).rotate(Math.toRadians(degree),
-                object.getX() + (float) object.getW() / 2,
-                    object.getY() + (float) object.getH() / 2);
-        object.draw(rotated);
-        buffer.getGraphics().drawImage(rotated.getBuffer(), 0, 0, null);
+        Buffer scaled = new Buffer(buffer.getBuffer().getWidth(), buffer.getBuffer().getHeight());
+        AffineTransform at = new AffineTransform();
+        at.translate((object.getX() + (float) object.getW()) / 2,
+                        (object.getY() + (float) object.getH()) / 2);
+        at.scale(sx, sy);
+
+        scaled.getGraphics().setTransform(at);
+        object.draw(scaled);
+
+        buffer.getGraphics().drawImage(scaled.getBuffer(), 0, 0, null);
         return 0;
     }
 
@@ -87,19 +97,23 @@ public class Rotator implements CorgitObject {
         return object.animations();
     }
 
-    public CorgitObject getObject() {
-        return object;
+    public void setSXY(double sx, double sy) {
+        setSx(sx); setSy(sy);
     }
 
-    public void setObject(CorgitObject object) {
-        this.object = object;
+    public double getSx() {
+        return sx;
     }
 
-    public double getDegree() {
-        return degree;
+    public void setSx(double sx) {
+        this.sx = sx;
     }
 
-    public void setDegree(double degree) {
-        this.degree = degree;
+    public double getSy() {
+        return sy;
+    }
+
+    public void setSy(double sy) {
+        this.sy = sy;
     }
 }
