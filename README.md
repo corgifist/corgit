@@ -20,3 +20,5 @@ Roadmap:
 * Audio support
 * Text drawing system
 * Built-in triangle rasterizer
+* Better transformations
+* GUI designer
