@@ -24,10 +24,14 @@ public class Scaler implements CorgitObject {
 
     @Override
     public int draw(Buffer buffer) {
-        Buffer scaled = new Buffer(buffer.getBuffer().getWidth(), buffer.getBuffer().getHeight());
+        int width = buffer.getBuffer().getWidth();
+        int height = buffer.getBuffer().getHeight();
+        Buffer scaled = new Buffer(width, height);
         AffineTransform at = new AffineTransform();
-        at.translate((object.getX() + (float) object.getW()) / 2,
-                        (object.getY() + (float) object.getH()) / 2);
+//        at.translate((object.getX() + (float) object.getW()) / 2,
+//                        (object.getY() + (float) object.getH()) / 2);
+        at.translate((width - object.getW() * sx) / 2,
+                        (height - object.getH() * sy) / 2);
         at.scale(sx, sy);
 
         scaled.getGraphics().setTransform(at);
