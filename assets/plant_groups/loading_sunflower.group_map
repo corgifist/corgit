@@ -1,0 +1,27 @@
+folder sunflower
+
+new_atlas_map sunflower_atlas sunflower.atlas_map
+
+atlas_get_image sunflower_atlas sunflower_eye
+image 78x35
+element sunflower_eye_r
+add
+
+image 45x35
+element sunflower_eye_l
+add
+
+atlas_get_image sunflower_atlas sunflower_smile
+image 34x65
+element sunflower_smile
+add
+
+atlas_get_image sunflower_atlas sunflower_front
+image 20x15
+element sunflower_front
+add
+
+atlas_get_image sunflower_atlas sunflower_back
+image 0x0
+element sunflower_back
+add

@@ -1,0 +1,10 @@
+folder egypt_delayload
+
+entry egypt_mid
+file mid.png
+
+entry egypt_end
+file end.png
+
+entry egypt_beg
+file beg.png

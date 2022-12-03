@@ -120,4 +120,12 @@ public class Scaler implements CorgitObject {
     public void setSy(double sy) {
         this.sy = sy;
     }
+
+    public CorgitObject getObject() {
+        return object;
+    }
+
+    public void setObject(CorgitObject object) {
+        this.object = object;
+    }
 }

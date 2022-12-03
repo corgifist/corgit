@@ -1,5 +1,7 @@
 package com.corgit;
 
+import com.tinysound.TinySound;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -48,7 +50,9 @@ public class Display extends Canvas {
         long lastTime = 0;
         double fps = 0;
         String oldTitle = frame.getTitle();
+        TinySound.init();
         while (true) {
+            if (!frame.isActive()) continue;
             lastTime = System.nanoTime();
             try {
                 if (ApplicationMaster.GLOBAL_SCENE.update(frameBuffer) != 0) {

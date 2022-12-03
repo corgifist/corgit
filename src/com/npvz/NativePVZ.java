@@ -2,34 +2,37 @@ package com.npvz;
 
 import com.corgit.ApplicationAdapter;
 import com.corgit.Buffer;
-import com.corgit.animations.SinMagnitude;
-import com.corgit.animations.XShift;
+import com.corgit.OneTimeAction;
+import com.corgit.Sounds;
 import com.corgit.objects.*;
-import com.corgit.util.AtlasMap;
-import com.corgit.util.AtlasMapParser;
-import com.npvz.objects.SunflowerLoading;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
+import com.corgit.util.GroupMapParser;
+import org.checkerframework.checker.units.qual.A;
 
 public class NativePVZ implements ApplicationAdapter {
 
     private ClearObject clear;
-    private Rotator sunflower;
+    private Scaler sunflower;
+    private Text text;
+    private OneTimeAction ambient;
 
     @Override
     public void prepare(Buffer frame) {
         clear = new ClearObject();
-        sunflower = new Rotator(new Scaler(0.5, 0.5, new SunflowerLoading(1100, 600)), 0);
+        sunflower = new Scaler(0.5, 0.5, new Rotator(GroupMapParser.parse("plant_groups/loading_sunflower.group_map"), 0));
+        text = new Text(100, 100, "PopCap presents");
+        this.ambient = new OneTimeAction((object -> {
+            Sounds.loadMusic("egypt_normal.wav").play(false);
+        }));
     }
 
     @Override
     public int update(Buffer frame) {
+        ambient.act(clear);
         clear.draw(frame);
-        sunflower.setDegree(sunflower.getDegree() + 1);
+        Rotator r = ((Rotator) sunflower.getObject());
+        r.setDegree(r.getDegree() + 1);
         sunflower.draw(frame);
+        text.draw(frame);
         return 0;
     }
 }
