@@ -1,7 +1,10 @@
 package com.corgit;
 
+import com.corgit.util.PipelineAffections;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.nio.channels.Pipe;
 
 public class Buffer {
 
@@ -11,6 +14,10 @@ public class Buffer {
     public Buffer(BufferedImage buffer) {
         this.buffer = buffer;
         this.graphics = buffer.createGraphics();
+    }
+
+    public Buffer(Buffer template) {
+        this(template.getBuffer().getWidth(), template.getBuffer().getHeight());
     }
 
     public Buffer(BufferedImage buffer, Graphics2D graphics) {
@@ -27,6 +34,7 @@ public class Buffer {
     }
 
     public Graphics2D getGraphics() {
+        PipelineAffections.AFFECTIONS++;
         return graphics;
     }
 

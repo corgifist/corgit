@@ -1,5 +1,6 @@
 package com.corgit;
 
+import com.corgit.util.PipelineAffections;
 import com.tinysound.TinySound;
 
 import javax.swing.*;
@@ -56,17 +57,19 @@ public class Display extends Canvas {
             lastTime = System.nanoTime();
             try {
                 if (ApplicationMaster.GLOBAL_SCENE.update(frameBuffer) != 0) {
-                    throw new RuntimeException("NativePVZ has encountered an error!");
+                    throw new RuntimeException(oldTitle + " has encountered an error!");
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
-                throw new RuntimeException("NativePVZ has encountered an error!");
+                throw new RuntimeException(oldTitle + " has encountered an error!");
             }
+            PipelineAffections.drawAffections(frameBuffer);
             swapBuffers();
             fps = 1000000000.0 / (System.nanoTime() - lastTime);
             GameClock.delta = (System.nanoTime() - lastTime);
             GameClock.time += GameClock.step;
             frame.setTitle(oldTitle + " | FPS: " + fps);
+            PipelineAffections.AFFECTIONS = 0;
         }
     }
 

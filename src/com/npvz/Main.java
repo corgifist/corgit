@@ -1,7 +1,7 @@
 package com.npvz;
 
 import com.corgit.ApplicationMaster;
-import com.corgit.Display;
+import com.npvz.scenes.NativePVZ;
 
 import static com.corgit.ApplicationMaster.display;
 

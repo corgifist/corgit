@@ -11,14 +11,19 @@ public class Text implements CorgitObject {
     private int x, y;
     private String text;
     private Font font;
+    private Color color;
     private ArrayList<Animation> animations;
 
-
-    public Text(int x, int y, String text, Font font) {
+    public Text(int x, int y, String text, Font font, Color color) {
         this.x = x;
         this.y = y;
         this.text = text;
         this.font = font;
+        this.color = color;
+    }
+
+    public Text(int x, int y, String text, Font font) {
+        this(x, y, text, font, Color.WHITE);
     }
 
     public Text(int x, int y, String text) {
@@ -27,6 +32,7 @@ public class Text implements CorgitObject {
 
     @Override
     public int draw(Buffer buffer) {
+        buffer.getGraphics().setColor(color);
         buffer.getGraphics().setFont(font);
         buffer.getGraphics().drawString(text, x, y);
         return 0;

@@ -31,6 +31,7 @@ public class AtlasMapParser {
                     entryString = parts.get(1);
                 }
                 if (parts.get(0).equals("file")) {
+                    System.out.println("Approximate path: " + "assets/" + folder + "/" + parts.get(1));
                     result.put(entryString, new Buffer(ImageIO.read(new File("assets/" + folder + "/" + parts.get(1)))));
                 }
                 if (parts.get(0).equals("folder")) {
@@ -38,6 +39,7 @@ public class AtlasMapParser {
                 }
             }
         } catch (IOException e) {
+            System.err.println("Tried to parse: " + filename);
             throw new RuntimeException(e);
         }
 

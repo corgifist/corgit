@@ -100,4 +100,12 @@ public class ImageDummy implements CorgitObject {
     public void setH(int h) {
         this.h = h;
     }
+
+    public Buffer getImage() {
+        return image;
+    }
+
+    public void setImage(Buffer image) {
+        this.image = image;
+    }
 }
