@@ -30,6 +30,10 @@ public class Text implements CorgitObject {
         this(x, y, text, new Font("BrianneTod", Font.PLAIN, 24));
     }
 
+    public Text(int x, int y, String text, Color color) {
+        this(x, y, text, new Font("BrianneTod", Font.PLAIN, 24), color);
+    }
+
     @Override
     public int draw(Buffer buffer) {
         buffer.getGraphics().setColor(color);

@@ -2,10 +2,13 @@ package com.corgit.objects;
 
 import com.corgit.Buffer;
 import com.corgit.animations.Animation;
+import com.corgit.util.RenderingMethod;
 import org.checkerframework.checker.units.qual.A;
 
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
+
+import static com.corgit.ApplicationMaster.RMETHOD;
 
 public class Scaler implements CorgitObject {
 
@@ -26,15 +29,30 @@ public class Scaler implements CorgitObject {
     public int draw(Buffer buffer) {
         int width = buffer.getBuffer().getWidth();
         int height = buffer.getBuffer().getHeight();
-        AffineTransform oldTransform = buffer.getGraphics().getTransform();
-        AffineTransform at = buffer.getGraphics().getTransform();
-        at.translate((width - object.getW() * sx) / 2,
-                        (height - object.getH() * sy) / 2);
-        at.scale(sx, sy);
+        if (RMETHOD == RenderingMethod.PERFORMANCE) {
+            AffineTransform oldTransform = buffer.getGraphics().getTransform();
+            AffineTransform at = buffer.getGraphics().getTransform();
+            at.translate((width - object.getW() * sx) / 2,
+                    (height - object.getH() * sy) / 2);
+            at.scale(sx, sy);
 
-        buffer.getGraphics().setTransform(at);
-        object.draw(buffer);
-        buffer.getGraphics().setTransform(oldTransform);
+            buffer.getGraphics().setTransform(at);
+            object.draw(buffer);
+            buffer.getGraphics().setTransform(oldTransform);
+        } else {
+            Buffer scaled = new Buffer(width, height);
+            AffineTransform at = new AffineTransform();
+//        at.translate((object.getX() + (float) object.getW()) / 2,
+//                        (object.getY() + (float) object.getH()) / 2);
+            at.translate((width - object.getW() * sx) / 2,
+                    (height - object.getH() * sy) / 2);
+            at.scale(sx, sy);
+
+            scaled.getGraphics().setTransform(at);
+            object.draw(scaled);
+
+            buffer.getGraphics().drawImage(scaled.getBuffer(), 0, 0, null);
+        }
         return 0;
     }
 

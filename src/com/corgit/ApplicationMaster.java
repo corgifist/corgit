@@ -7,6 +7,8 @@ public class ApplicationMaster {
 
     public static Display display = new Display(1280, 720, "NativePVZ");
 
+    public static RenderingMethod RMETHOD = RenderingMethod.PERFORMANCE;
+
     public static void load(ApplicationAdapter app) {
         GLOBAL_SCENE = app;
     }

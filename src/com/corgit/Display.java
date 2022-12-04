@@ -20,13 +20,17 @@ public class Display extends Canvas {
 
     public static GraphicsConfiguration bufferConfig;
 
+    private int width, height;
+
     public Display(int width, int height, String title) {
+        this.width = width;
+        this.height = height;
+
         Dimension d = new Dimension(width, height);
         setPreferredSize(d);
         setMaximumSize(d);
         setMaximumSize(d);
 
-        frameBuffer = new Buffer(width, height);
 
         frame = new JFrame();
         frame.add(this);
@@ -36,15 +40,17 @@ public class Display extends Canvas {
         frame.setLocationRelativeTo(null);
         frame.setTitle(title);
         frame.setVisible(true);
+    }
 
-        bufferGraphics = frameBuffer.getGraphics();
+    public void run() {
+        frameBuffer = new Buffer(width, height);
 
         createBufferStrategy(1);
         frameStrategy = getBufferStrategy();
         frameGraphics = frameStrategy.getDrawGraphics();
-    }
+        bufferGraphics = frameBuffer.getGraphics();
 
-    public void run() {
+
         ApplicationMaster.GLOBAL_SCENE.prepare(frameBuffer);
         long lastTime = 0;
         double fps = 0;

@@ -1,7 +1,9 @@
 package com.corgit.objects;
 
+import com.corgit.ApplicationMaster;
 import com.corgit.Buffer;
 import com.corgit.animations.Animation;
+import com.corgit.util.RenderingMethod;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -19,12 +21,21 @@ public class Rotator implements CorgitObject {
 
     @Override
     public int draw(Buffer buffer) {
-        AffineTransform oldTransform = buffer.getGraphics().getTransform();
-        ((Graphics2D) buffer.getGraphics()).rotate(Math.toRadians(degree),
-                object.getX() + (float) object.getW() / 2,
+        if (ApplicationMaster.RMETHOD == RenderingMethod.PERFORMANCE) {
+            AffineTransform oldTransform = buffer.getGraphics().getTransform();
+            ((Graphics2D) buffer.getGraphics()).rotate(Math.toRadians(degree),
+                    object.getX() + (float) object.getW() / 2,
                     object.getY() + (float) object.getH() / 2);
-        object.draw(buffer);
-        buffer.getGraphics().setTransform(oldTransform);
+            object.draw(buffer);
+            buffer.getGraphics().setTransform(oldTransform);
+        } else {
+            Buffer rotated = new Buffer(buffer.getBuffer().getWidth(), buffer.getBuffer().getHeight());
+            ((Graphics2D) rotated.getGraphics()).rotate(Math.toRadians(degree),
+                    object.getX() + (float) object.getW() / 2,
+                    object.getY() + (float) object.getH() / 2);
+            object.draw(rotated);
+            buffer.getGraphics().drawImage(rotated.getBuffer(), 0, 0, null);
+        }
         return 0;
     }
 

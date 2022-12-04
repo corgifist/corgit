@@ -55,8 +55,8 @@ public class Board implements CorgitObject {
             for (int y = 0; y < HEIGHT; y++) {
                 CorgitObject object = get(x, y);
                 if (object == null) continue;
-                int xc = 75 * x;
-                int yc = 90 * y;
+                int xc = 65 * x;
+                int yc = 150 * y;
                 object.setX(xc + 500);
                 object.setY(yc + 190);
                 object.draw(buffer);

@@ -10,6 +10,9 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import static com.corgit.ApplicationMaster.RMETHOD;
+import static com.corgit.util.RenderingMethod.PERFORMANCE;
+
 public class Transformator implements CorgitObject {
 
     private CorgitObject object;
@@ -23,10 +26,18 @@ public class Transformator implements CorgitObject {
 
     @Override
     public int draw(Buffer buffer) {
-        AffineTransform nullTransform = buffer.getGraphics().getTransform();
-        buffer.getGraphics().translate(x, y);
-        object.draw(buffer);
-        buffer.getGraphics().setTransform(nullTransform);
+        if (RMETHOD == PERFORMANCE) {
+            AffineTransform nullTransform = buffer.getGraphics().getTransform();
+            buffer.getGraphics().translate(x, y);
+            object.draw(buffer);
+            buffer.getGraphics().setTransform(nullTransform);
+        } else {
+            Buffer transformed = new Buffer(buffer.getBuffer().getWidth(), buffer.getBuffer().getHeight());
+            transformed.getGraphics().translate(x, y);
+            object.draw(transformed);
+
+            buffer.getGraphics().drawImage(transformed.getBuffer(), 0, 0, null);
+        }
         return 0;
     }
 

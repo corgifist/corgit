@@ -7,6 +7,7 @@ import com.npvz.Atlases;
 import com.npvz.objects.BackgroundType;
 import com.npvz.objects.Board;
 import com.npvz.objects.BufferObject;
+import com.npvz.objects.plants.Sunflower;
 import com.tinysound.Music;
 
 import java.awt.*;
@@ -89,6 +90,10 @@ public class Splash implements ApplicationAdapter {
         this.logoShift = new PredicateAction(object -> pvz2Logo.getY() > LOGO_SHIFT && logoChain2.isActive(), object -> {
             pvz2Logo.setY(pvz2Logo.getY() - 45);
         });
+
+        this.battleBoard.add(0, 0, new Sunflower());
+        this.battleBoard.add(2, 1, new Sunflower());
+        this.battleBoard.add(0, 1, new Sunflower());
     }
 
     @Override

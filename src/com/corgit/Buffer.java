@@ -2,11 +2,11 @@ package com.corgit;
 
 import com.corgit.util.PipelineAffections;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.WritableRaster;
-import java.nio.channels.Pipe;
 
 public class Buffer {
 

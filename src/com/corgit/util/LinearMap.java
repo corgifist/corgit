@@ -30,6 +30,24 @@ public class LinearMap<K, V> {
         return null;
     }
 
+    public void remove(K key) {
+        ArrayList<LinearScope<K, V>> newBinds = new ArrayList<>();
+        for (LinearScope<K, V> bind : binds) {
+            if (!bind.getKey().equals(key)) {
+                newBinds.add(bind);
+            }
+        }
+
+        binds = newBinds;
+    }
+
+    public boolean contains(K key) {
+        for (LinearScope<K, V> bind : binds) {
+            if (bind.getKey().equals(key)) return true;
+        }
+        return false;
+    }
+
     public ArrayList<V> getValues() {
         ArrayList<V> result = new ArrayList<>();
         for (LinearScope<K, V> bind : binds) {
@@ -38,6 +56,13 @@ public class LinearMap<K, V> {
         return result;
     }
 
+    public ArrayList<K> getKeys() {
+        ArrayList<K> result = new ArrayList<>();
+        for (LinearScope<K, V> bind : binds) {
+            result.add(bind.getKey());
+        }
+        return result;
+    }
     public ArrayList<LinearScope<K, V>> getBinds() {
         return binds;
     }

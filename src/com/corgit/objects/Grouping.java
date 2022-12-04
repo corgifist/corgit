@@ -1,7 +1,9 @@
 package com.corgit.objects;
 
+import com.corgit.ApplicationMaster;
 import com.corgit.Buffer;
 import com.corgit.animations.Animation;
+import com.corgit.util.RenderingMethod;
 import org.checkerframework.checker.units.qual.A;
 
 import java.awt.geom.AffineTransform;
@@ -34,12 +36,20 @@ public class Grouping implements CorgitObject {
 
     @Override
     public int draw(Buffer buffer) {
-        AffineTransform oldTransform = buffer.getGraphics().getTransform();
-        buffer.getGraphics().translate(x, y);
-        for (CorgitObject object : objects) {
-            object.draw(buffer);
+        if (ApplicationMaster.RMETHOD == RenderingMethod.PERFORMANCE) {
+            AffineTransform oldTransform = buffer.getGraphics().getTransform();
+            buffer.getGraphics().translate(x, y);
+            for (CorgitObject object : objects) {
+                object.draw(buffer);
+            }
+            buffer.getGraphics().setTransform(oldTransform);
+        } else {
+            Buffer grouped = new Buffer(buffer.getBuffer().getWidth(), buffer.getBuffer().getHeight());
+            for (CorgitObject object : objects) {
+                object.draw(grouped);
+            }
+            buffer.getGraphics().drawImage(grouped.getBuffer(), x, y, null);
         }
-        buffer.getGraphics().setTransform(oldTransform);
         return 0;
     }
 

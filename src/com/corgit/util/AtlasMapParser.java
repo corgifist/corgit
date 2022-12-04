@@ -1,6 +1,7 @@
 package com.corgit.util;
 
 import com.corgit.Buffer;
+import com.corgit.Display;
 import com.google.common.base.Splitter;
 
 import javax.imageio.ImageIO;
@@ -12,6 +13,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
+
+import static com.corgit.ApplicationMaster.display;
 
 public class AtlasMapParser {
 
