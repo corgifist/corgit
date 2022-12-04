@@ -4,6 +4,7 @@ import com.corgit.Buffer;
 import com.corgit.animations.Animation;
 import org.checkerframework.checker.units.qual.A;
 
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -28,20 +29,17 @@ public class Grouping implements CorgitObject {
     }
 
     public Grouping(int x, int y, CorgitObject... objects) {
-        this(x, y, -1, -1, objects);
+        this(x, y, 1, 1, objects);
     }
 
     @Override
     public int draw(Buffer buffer) {
-        Buffer grouped = new Buffer(buffer.getBuffer().getWidth(), buffer.getBuffer().getHeight());
+        AffineTransform oldTransform = buffer.getGraphics().getTransform();
+        buffer.getGraphics().translate(x, y);
         for (CorgitObject object : objects) {
-            object.draw(grouped);
+            object.draw(buffer);
         }
-        if (w + h == -2) {
-            buffer.getGraphics().drawImage(grouped.getBuffer(), x, y, null);
-        } else {
-            buffer.getGraphics().drawImage(grouped.getBuffer(), x, y, w, h, null);
-        }
+        buffer.getGraphics().setTransform(oldTransform);
         return 0;
     }
 

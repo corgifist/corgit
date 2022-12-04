@@ -20,7 +20,6 @@ public class ParsedGroup implements CorgitObject {
         this.atlases = atlases;
         this.group = group;
         ArrayList<CorgitObject> objects = group.getValues();
-        System.out.println(group);
         Collections.reverse(objects);
         this.renderLayer = new Grouping(0, 0, objects.toArray(new CorgitObject[] {}));
     }

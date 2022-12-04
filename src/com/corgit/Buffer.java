@@ -4,6 +4,8 @@ import com.corgit.util.PipelineAffections;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.WritableRaster;
 import java.nio.channels.Pipe;
 
 public class Buffer {
@@ -26,16 +28,23 @@ public class Buffer {
     }
 
     public Buffer(int width, int height) {
-        this(new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB));
+        this(new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB_PRE));
     }
 
     public void clear() {
-        graphics.clearRect(0, 0, buffer.getWidth(), buffer.getHeight());
+        graphics.clearRect(0, 0, 1920, 1080);
     }
 
     public Graphics2D getGraphics() {
         PipelineAffections.AFFECTIONS++;
         return graphics;
+    }
+
+    public static BufferedImage deepCopy(BufferedImage bi) {
+        ColorModel cm = bi.getColorModel();
+        boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
+        WritableRaster raster = bi.copyData(null);
+        return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
     }
 
     public BufferedImage getBuffer() {

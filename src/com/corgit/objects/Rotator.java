@@ -4,6 +4,7 @@ import com.corgit.Buffer;
 import com.corgit.animations.Animation;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
 public class Rotator implements CorgitObject {
@@ -18,12 +19,12 @@ public class Rotator implements CorgitObject {
 
     @Override
     public int draw(Buffer buffer) {
-        Buffer rotated = new Buffer(buffer.getBuffer().getWidth(), buffer.getBuffer().getHeight());
-        ((Graphics2D) rotated.getGraphics()).rotate(Math.toRadians(degree),
+        AffineTransform oldTransform = buffer.getGraphics().getTransform();
+        ((Graphics2D) buffer.getGraphics()).rotate(Math.toRadians(degree),
                 object.getX() + (float) object.getW() / 2,
                     object.getY() + (float) object.getH() / 2);
-        object.draw(rotated);
-        buffer.getGraphics().drawImage(rotated.getBuffer(), 0, 0, null);
+        object.draw(buffer);
+        buffer.getGraphics().setTransform(oldTransform);
         return 0;
     }
 

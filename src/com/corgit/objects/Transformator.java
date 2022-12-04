@@ -1,8 +1,13 @@
 package com.corgit.objects;
 
+import com.corgit.ApplicationMaster;
 import com.corgit.Buffer;
 import com.corgit.animations.Animation;
+import com.corgit.util.RenderingMethod;
 
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Transformator implements CorgitObject {
@@ -18,12 +23,10 @@ public class Transformator implements CorgitObject {
 
     @Override
     public int draw(Buffer buffer) {
-        Buffer transformed = new Buffer(buffer.getBuffer().getWidth(), buffer.getBuffer().getHeight());
-        transformed.getGraphics().translate(x, y);
-        object.draw(transformed);
-
-        buffer.getGraphics().drawImage(transformed.getBuffer(), 0, 0, null);
-
+        AffineTransform nullTransform = buffer.getGraphics().getTransform();
+        buffer.getGraphics().translate(x, y);
+        object.draw(buffer);
+        buffer.getGraphics().setTransform(nullTransform);
         return 0;
     }
 

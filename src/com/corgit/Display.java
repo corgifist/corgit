@@ -18,7 +18,7 @@ public class Display extends Canvas {
     private Graphics frameGraphics;
     private BufferStrategy frameStrategy;
 
-    private AffineTransform bufferTransform;
+    public static GraphicsConfiguration bufferConfig;
 
     public Display(int width, int height, String title) {
         Dimension d = new Dimension(width, height);
@@ -42,8 +42,6 @@ public class Display extends Canvas {
         createBufferStrategy(1);
         frameStrategy = getBufferStrategy();
         frameGraphics = frameStrategy.getDrawGraphics();
-
-        bufferTransform = ((Graphics2D) frameGraphics).getTransform();
     }
 
     public void run() {
@@ -53,8 +51,9 @@ public class Display extends Canvas {
         String oldTitle = frame.getTitle();
         TinySound.init();
         while (true) {
-            if (!frame.isActive()) continue;
             lastTime = System.nanoTime();
+            ((Graphics2D) bufferGraphics).setRenderingHint(RenderingHints.KEY_RENDERING,
+                                                            RenderingHints.VALUE_RENDER_SPEED);
             try {
                 if (ApplicationMaster.GLOBAL_SCENE.update(frameBuffer) != 0) {
                     throw new RuntimeException(oldTitle + " has encountered an error!");

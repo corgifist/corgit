@@ -1,5 +1,7 @@
 package com.corgit;
 
+import com.corgit.util.RenderingMethod;
+
 public class ApplicationMaster {
     public static ApplicationAdapter GLOBAL_SCENE;
 
